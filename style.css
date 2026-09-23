@@ -9,7 +9,7 @@
     --rule: #c9bedb;
     --cream: #f8f2e6;
     --container: 1040px;
-    --header-h: 118px;
+    --header-h: 104px;
 
     --serif: "EB Garamond", Garamond, Georgia, serif;
     --nav-font: "Cormorant Garamond", Garamond, Georgia, serif;
@@ -56,7 +56,7 @@ a { color: inherit; text-decoration: none; }
     position: fixed;
     inset: 0 0 auto;
     z-index: 50;
-    padding: 24px 16px 0;
+    padding: 10px 16px 0;
     transition: padding .45s var(--ease-out);
 }
 
@@ -512,7 +512,7 @@ a { color: inherit; text-decoration: none; }
 .is-fullscreen {
     --gutter: clamp(16px, 7vw, 180px);
     --container: min(1760px, 100%);
-    --header-h: clamp(118px, 9vw, 160px);
+    --header-h: clamp(104px, 8vw, 146px);
     font-size: clamp(100%, 0.36vw + 0.69rem, 125%);
 }
 
@@ -591,7 +591,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 560px) {
-    :root { --header-h: 150px; }
+    :root { --header-h: 136px; }
     .nav-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
     .logo img { width: 110px; }
     .site-header.is-stuck .logo img { width: 80px; }
