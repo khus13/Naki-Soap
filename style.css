@@ -1,0 +1,545 @@
+/* ===== Tokens ===== */
+:root {
+    --ink: #2a0b5c;          /* headings */
+    --violet: #4c119c;       /* buttons */
+    --lilac: #9a80c2;        /* body copy */
+    --lilac-soft: #b3a2cc;   /* footer copy */
+    --nav: #8b8190;          /* nav links */
+    --nav-active: #6a4f9e;
+    --rule: #c9bedb;
+    --cream: #f8f2e6;
+    --container: 1040px;
+    --header-h: 118px;
+
+    --serif: "EB Garamond", Garamond, Georgia, serif;
+    --nav-font: "Cormorant Garamond", Garamond, Georgia, serif;
+
+    /* critically damped feel for plain CSS transitions */
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--serif);
+    font-size: 100%;
+    color: var(--lilac);
+    background: linear-gradient(90deg, #f1ebdf 0%, #f8f5ef 40%, #fdfbfb 100%);
+    background-attachment: fixed;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+    outline: 2px solid var(--nav-active);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.page {
+    position: relative;
+    overflow: hidden;
+    padding: 0 16px;
+    scroll-margin-top: calc(var(--header-h) - 30px);
+}
+
+/* ===== Sticky nav =====
+   Fixed so it follows the page. At the top it's transparent and shows the
+   design's rule; once scrolled it becomes a frosted material and the hard
+   rule is replaced with a soft scroll-edge fade. */
+.site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    padding: 24px 16px 0;
+    transition: padding .45s var(--ease-out);
+}
+
+.site-header::before,
+.site-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .35s var(--ease-out);
+}
+
+/* the material */
+.site-header::before {
+    inset: 0;
+    background: rgba(250, 247, 241, .72);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* scroll-edge effect instead of a 1px divider */
+.site-header::after {
+    top: 100%;
+    height: 18px;
+    background: linear-gradient(rgba(42, 11, 92, .07), rgba(42, 11, 92, 0));
+}
+
+.site-header.is-stuck { padding-top: 10px; }
+.site-header.is-stuck::before,
+.site-header.is-stuck::after { opacity: 1; }
+
+.nav-bar {
+    position: relative;
+    max-width: var(--container);
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 0 6px 4px;
+}
+
+/* the design's rule, fades out when the material takes over */
+.nav-bar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 2px solid var(--rule);
+    transition: opacity .35s var(--ease-out);
+}
+
+.is-stuck .nav-bar::after { opacity: 0; }
+
+.logo {
+    display: block;
+    transform-origin: left bottom;
+    transition: transform .45s var(--ease-out);
+}
+
+.logo img { width: 130px; }
+
+.is-stuck .logo { transform: scale(.72); }
+
+.nav-links { position: relative; }
+
+.nav-links ul {
+    list-style: none;
+    display: flex;
+    gap: clamp(20px, 5vw, 58px);
+    padding: 0 0 12px;
+}
+
+.nav-links a {
+    display: inline-block;
+    font-family: var(--nav-font);
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: .005em;
+    color: var(--nav);
+    transition: color .2s, transform .1s ease-out;
+}
+
+/* vibrancy: slightly more contrast over the translucent material */
+.is-stuck .nav-links a { color: #6f6575; }
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--nav-active); }
+
+.nav-links a:active { transform: scale(.96); }
+
+/* sliding underline, driven by a spring in index.js */
+.nav-indicator {
+    position: absolute;
+    left: 0;
+    bottom: 12px;
+    width: 0;
+    height: 1.5px;
+    background: var(--nav-active);
+    will-change: transform;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    display: inline-block;
+    background: var(--violet);
+    color: #fff;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: .01em;
+    padding: 8px 42px;
+    transition: background .2s, transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+}
+
+.btn:hover {
+    background: #3a0a7d;
+    box-shadow: 0 8px 20px -8px rgba(76, 17, 156, .55);
+}
+
+/* feedback on press, instantly */
+.btn:active {
+    transform: scale(.97);
+    transition: transform .1s ease-out;
+}
+
+/* ===== Home ===== */
+.home {
+    padding-top: var(--header-h);
+    padding-bottom: 80px;
+}
+
+.hero {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 40px;
+    padding: 50px 0 20px;
+}
+
+.hero h1 {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: clamp(2.6rem, 5.4vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;    /* large type tracks tighter */
+    white-space: nowrap;
+}
+
+.hero p {
+    margin: 28px 0 38px;
+    font-size: 1.12rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.hero-image img {
+    width: min(100%, 470px);
+    margin: -20px auto 0;
+}
+
+.divider {
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+    margin: 10px auto 0;
+    margin-left: max(16px, calc(50% - 460px));
+    border: 0;
+    border-top: 2px solid var(--rule);
+}
+
+/* Petals: each one is a crop of bg-petals.png (837×489) */
+.petal {
+    --s: 1;
+    position: absolute;
+    width: calc(var(--w) * var(--s) * 1px);
+    height: calc(var(--h) * var(--s) * 1px);
+    background: url("images/bg-petals.png") no-repeat;
+    background-size: calc(837px * var(--s)) calc(489px * var(--s));
+    background-position: calc(var(--x) * var(--s) * -1px) calc(var(--y) * var(--s) * -1px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.petal--tl { --x: 0;   --y: 0;   --w: 118; --h: 115; --s: 1.1;  left: -62px;  top: -24px;    transform: rotate(18deg); }
+.petal--tr { --x: 684; --y: 185; --w: 134; --h: 100; --s: .7;   right: 8%;    top: -44px;    transform: rotate(-150deg); }
+.petal--r1 { --x: 450; --y: 66;  --w: 148; --h: 108; --s: .75;  right: -38px; top: 90px;     transform: rotate(-35deg); }
+.petal--r2 { --x: 466; --y: 270; --w: 144; --h: 116; --s: .75;  right: -48px; top: 255px;    transform: rotate(20deg); }
+.petal--bl { --x: 58;  --y: 214; --w: 152; --h: 158; --s: .65;  left: -40px;  bottom: -30px; transform: rotate(70deg); }
+
+/* ===== Products ===== */
+.products {
+    min-height: 820px;
+    padding-top: 90px;
+    padding-bottom: 120px;
+}
+
+.dried-petals {
+    position: absolute;
+    width: 640px;
+    max-width: none;
+    right: -210px;
+    top: 270px;
+    transform: rotate(-90deg);
+    opacity: .9;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.product {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1fr;
+    gap: 50px;
+}
+
+.product-carousel { padding-top: 60px; min-width: 0; }
+
+/* carousel viewport: padding leaves room for the drop shadow */
+.slides {
+    position: relative;
+    overflow: hidden;
+    padding: 12px 20px 28px;
+    margin: -12px -20px -28px;
+    cursor: grab;
+    touch-action: pan-y;          /* vertical scroll stays native, horizontal is ours */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.slides.is-dragging { cursor: grabbing; }
+
+.track {
+    display: flex;
+    gap: 40px;
+    will-change: transform;
+}
+
+.slide {
+    flex: 0 0 100%;
+    aspect-ratio: 3 / 2;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 18px rgba(40, 20, 70, .18));
+    pointer-events: none;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 50%;
+    background: #d9c4f5;
+    cursor: pointer;
+    transition: background .25s, transform .35s var(--ease-out);
+}
+
+.dot:hover { transform: scale(1.15); }
+.dot:active { transform: scale(.85); transition: transform .1s ease-out; }
+.dot.is-active { background: #7b5fb3; }
+
+.product-info { display: flex; flex-direction: column; }
+
+.product-title {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    letter-spacing: -0.015em;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.product-desc {
+    margin-top: 40px;
+    font-size: 1.12rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.product-title,
+.product-desc {
+    transition: opacity .2s ease, transform .35s var(--ease-out);
+}
+
+/* text leaves in the direction of travel */
+.product-info.fade-next .product-title,
+.product-info.fade-next .product-desc { opacity: 0; transform: translateX(-12px); }
+.product-info.fade-prev .product-title,
+.product-info.fade-prev .product-desc { opacity: 0; transform: translateX(12px); }
+
+.btn--order {
+    align-self: flex-end;
+    margin-top: 100px;
+    padding: 8px 40px;
+    font-size: 1.1rem;
+}
+
+/* ===== Footer ===== */
+.footer-wrap {
+    position: relative;
+    overflow: hidden;
+    padding: 110px 16px 34px;
+    scroll-margin-top: var(--header-h);
+}
+
+/* Flowers are anchored by their top edge so they never get clipped at
+   wide widths; any extra height spills off the bottom, behind the card.
+   The flowers start ~15% down the image, so shifting it up 12% of its own
+   height leaves the petal tops just inside the footer area. */
+.footer-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: max(1366px, 100%);
+    aspect-ratio: 1366 / 500;
+    background: url("images/big-petal.png") no-repeat center top / 100% auto;
+    transform: translate(-50%, -12%);
+    pointer-events: none;
+}
+
+.footer {
+    position: relative;
+    z-index: 2;
+    max-width: 1160px;
+    margin: 0 auto;
+    background: var(--cream);
+    border: 1px solid #ddd3e6;
+    border-radius: 18px;
+    padding: 26px 34px 16px;
+    box-shadow: 0 10px 40px rgba(42, 11, 92, .18);
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 36px;
+}
+
+.footer-logo {
+    width: 116px;
+    height: 58px;
+    overflow: hidden;          /* hides the "by Arzeda Co." line of logo-2 */
+    margin-left: -6px;
+}
+
+.footer-logo img {
+    width: 116px;
+    filter: brightness(.55) saturate(1.8);
+}
+
+.footer-brand p {
+    max-width: 330px;
+    margin: 16px 0 18px;
+    font-size: .95rem;
+    line-height: 1.4;
+    letter-spacing: .01em;     /* small type tracks looser */
+    color: var(--lilac-soft);
+    text-align: justify;
+}
+
+.socials { display: flex; gap: 14px; }
+
+.socials a {
+    width: 28px;
+    height: 28px;
+    color: #3a0f86;
+    transition: color .2s, transform .35s var(--ease-out);
+}
+
+.socials a:hover { color: var(--violet); transform: translateY(-2px); }
+.socials a:active { transform: scale(.9); transition: transform .1s ease-out; }
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-top: 12px;
+}
+
+.footer-col h4 {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #9a86b8;
+    margin-bottom: 6px;
+}
+
+.footer-col a {
+    font-size: .92rem;
+    letter-spacing: .01em;
+    color: var(--lilac-soft);
+    transition: color .2s;
+}
+
+.footer-col a:hover { color: var(--violet); }
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 2px solid #ddd6d6;
+    font-size: .8rem;
+    letter-spacing: .015em;
+    color: #b0a3bd;
+}
+
+.legal { display: flex; gap: 22px; }
+.legal a { text-decoration: underline; text-underline-offset: 2px; }
+.legal a:hover { color: var(--violet); }
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+    .hero,
+    .product { grid-template-columns: 1fr; }
+
+    .hero h1 { white-space: normal; }
+    .product-carousel { padding-top: 0; }
+    .btn--order { align-self: center; margin-top: 40px; }
+    .dried-petals { width: 480px; right: -260px; top: auto; bottom: 60px; opacity: .5; }
+
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 560px) {
+    :root { --header-h: 150px; }
+    .nav-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .logo img { width: 110px; }
+    .is-stuck .logo { transform: scale(.8); }
+    .nav-links ul { gap: 18px; }
+    .nav-links a { font-size: 1.1rem; }
+    .footer { padding: 22px 20px 14px; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+/* ===== Accessibility preferences ===== */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        transition-property: opacity, color, background-color !important;
+        transition-duration: .2s !important;
+    }
+    .product-info.fade-next .product-title,
+    .product-info.fade-next .product-desc,
+    .product-info.fade-prev .product-title,
+    .product-info.fade-prev .product-desc { transform: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .site-header::before {
+        background: #f8f5ef;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
+@media (prefers-contrast: more) {
+    .site-header::before { background: #fbf9f5; border-bottom: 1px solid var(--nav-active); }
+    .hero p, .product-desc { color: #6a4f9e; }
+}
