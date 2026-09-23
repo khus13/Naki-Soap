@@ -1,3 +1,21 @@
+// Full screen (F11 or the Fullscreen API) switches to the stretched layout in
+// style.css. Registered first so the class is in place before the other resize
+// handlers below re-measure the nav and carousel.
+const fullscreenQuery = window.matchMedia("(display-mode: fullscreen)");
+
+function updateFullscreen() {
+    const fillsScreen =
+        Math.abs(window.innerWidth - screen.width) < 2 &&
+        Math.abs(window.innerHeight - screen.height) < 2;
+    const on = fullscreenQuery.matches || !!document.fullscreenElement || fillsScreen;
+    document.documentElement.classList.toggle("is-fullscreen", on);
+}
+
+updateFullscreen();
+window.addEventListener("resize", updateFullscreen);
+fullscreenQuery.addEventListener("change", updateFullscreen);
+document.addEventListener("fullscreenchange", updateFullscreen);
+
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 class Spring {
@@ -228,7 +246,29 @@ function goTo(index, { velocity = 0, damping = 1 } = {}) {
         current = index;
     }
     trackX.to(-index * stepSize(), { velocity, damping, response: 0.4 });
+    scheduleAutoplay();   // any change, manual or automatic, restarts the countdown
 }
+
+// --- autoplay: next soap every 3s, looping back to the first ---
+const AUTOPLAY_MS = 3000;
+let autoplayTimer;
+let hovering = false;
+
+function scheduleAutoplay() {
+    clearTimeout(autoplayTimer);
+    const keyboardFocus = viewport.matches(":focus-visible");
+    const paused = hovering || drag || keyboardFocus || document.hidden;
+    if (paused) return;
+    autoplayTimer = setTimeout(() => goTo((current + 1) % products.length), AUTOPLAY_MS);
+}
+
+// pause while the visitor is looking at or handling the carousel
+const carousel = document.querySelector(".product-carousel");
+carousel.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { hovering = true; scheduleAutoplay(); } });
+carousel.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") { hovering = false; scheduleAutoplay(); } });
+viewport.addEventListener("focusin", scheduleAutoplay);
+viewport.addEventListener("focusout", () => setTimeout(scheduleAutoplay));
+document.addEventListener("visibilitychange", scheduleAutoplay);
 
 dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
 
@@ -248,6 +288,7 @@ let drag = null;
 viewport.addEventListener("pointerdown", (e) => {
     if (e.button !== 0) return;
     trackX.stop();       // grab it mid-flight, from where it is on screen
+    clearTimeout(autoplayTimer);
     drag = {
         id: e.pointerId,
         startX: e.clientX,
@@ -295,6 +336,7 @@ function endDrag(e) {
 
     if (!wasDragging) {
         if (trackX.target !== trackX.value) goTo(current);   // tap during motion: settle
+        else scheduleAutoplay();
         return;
     }
 
@@ -316,3 +358,5 @@ viewport.addEventListener("pointerup", endDrag);
 viewport.addEventListener("pointercancel", endDrag);
 
 window.addEventListener("resize", () => trackX.jump(-current * stepSize()));
+
+scheduleAutoplay();

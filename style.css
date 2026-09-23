@@ -86,7 +86,7 @@ a { color: inherit; text-decoration: none; }
     background: linear-gradient(rgba(42, 11, 92, .07), rgba(42, 11, 92, 0));
 }
 
-.site-header.is-stuck { padding-top: 10px; }
+.site-header.is-stuck { padding-top: 6px; }
 .site-header.is-stuck::before,
 .site-header.is-stuck::after { opacity: 1; }
 
@@ -98,6 +98,13 @@ a { color: inherit; text-decoration: none; }
     align-items: flex-end;
     justify-content: space-between;
     padding: 0 0 6px 4px;
+    transition: padding .45s var(--ease-out);
+}
+
+/* collapsed: links sit centred against the smaller logo */
+.is-stuck .nav-bar {
+    align-items: center;
+    padding-bottom: 6px;
 }
 
 /* the design's rule, fades out when the material takes over */
@@ -113,15 +120,15 @@ a { color: inherit; text-decoration: none; }
 
 .is-stuck .nav-bar::after { opacity: 0; }
 
-.logo {
-    display: block;
-    transform-origin: left bottom;
-    transition: transform .45s var(--ease-out);
+.logo { display: block; }
+
+/* width (not scale) so the bar's height actually shrinks with the logo */
+.logo img {
+    width: 130px;
+    transition: width .45s var(--ease-out);
 }
 
-.logo img { width: 130px; }
-
-.is-stuck .logo { transform: scale(.72); }
+.site-header.is-stuck .logo img { width: 78px; }
 
 .nav-links { position: relative; }
 
@@ -130,7 +137,10 @@ a { color: inherit; text-decoration: none; }
     display: flex;
     gap: clamp(20px, 5vw, 58px);
     padding: 0 0 12px;
+    transition: padding .45s var(--ease-out);
 }
+
+.is-stuck .nav-links ul { padding: 6px 0; }
 
 .nav-links a {
     display: inline-block;
@@ -156,10 +166,13 @@ a { color: inherit; text-decoration: none; }
     left: 0;
     bottom: 12px;
     width: 0;
+    transition: bottom .45s var(--ease-out);
     height: 1.5px;
     background: var(--nav-active);
     will-change: transform;
 }
+
+.is-stuck .nav-indicator { bottom: 4px; }
 
 /* ===== Buttons ===== */
 .btn {
@@ -492,6 +505,77 @@ a { color: inherit; text-decoration: none; }
 .legal a { text-decoration: underline; text-underline-offset: 2px; }
 .legal a:hover { color: var(--violet); }
 
+/* ===== Full screen =====
+   index.js adds .is-fullscreen to <html> when the browser is full screen (F11).
+   The layout then stretches to use the whole display instead of sitting in
+   the fixed 1040px column. */
+.is-fullscreen {
+    --gutter: clamp(16px, 7vw, 180px);
+    --container: min(1760px, 100%);
+    --header-h: clamp(118px, 9vw, 160px);
+    font-size: clamp(100%, 0.36vw + 0.69rem, 125%);
+}
+
+.is-fullscreen .page,
+.is-fullscreen .site-header { padding-left: var(--gutter); padding-right: var(--gutter); }
+.is-fullscreen .footer-wrap { padding-left: var(--gutter); padding-right: var(--gutter); }
+
+.is-fullscreen .logo img { width: clamp(110px, 8.5vw, 170px); }
+.is-fullscreen .nav-links ul { gap: clamp(20px, 5vw, 80px); }
+
+/* home fills the screen, content centred vertically */
+.is-fullscreen .home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 60px;
+}
+
+.is-fullscreen .hero {
+    width: 100%;
+    margin: auto;
+    align-items: center;
+    gap: clamp(40px, 5vw, 120px);
+}
+
+.is-fullscreen .hero h1 { font-size: clamp(2.6rem, 4.4vw, 6rem); }
+
+.is-fullscreen .hero-image img {
+    width: min(100%, 38vw, 880px);
+    margin: 0 auto;
+}
+
+/* inset from the left like the design, flush with the content on the right */
+.is-fullscreen .divider {
+    width: 100%;
+    max-width: var(--container);
+    margin: 10px auto 0;
+    height: 2px;
+    border-top: 0;
+    background: linear-gradient(var(--rule), var(--rule)) no-repeat right / calc(100% - 60px) 100%;
+}
+
+.is-fullscreen .products {
+    min-height: max(820px, 100vh);
+    display: flex;
+    align-items: center;
+}
+
+.is-fullscreen .product {
+    width: 100%;
+    gap: clamp(50px, 6vw, 140px);
+}
+
+.is-fullscreen .dried-petals {
+    width: max(640px, 40vw);
+    right: min(-210px, -13vw);
+}
+
+.is-fullscreen .product-title { font-size: clamp(2.4rem, 4.2vw, 5.4rem); }
+
+.is-fullscreen .footer { max-width: var(--container); }
+
 /* ===== Responsive ===== */
 @media (max-width: 860px) {
     .hero,
@@ -510,7 +594,8 @@ a { color: inherit; text-decoration: none; }
     :root { --header-h: 150px; }
     .nav-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
     .logo img { width: 110px; }
-    .is-stuck .logo { transform: scale(.8); }
+    .site-header.is-stuck .logo img { width: 80px; }
+    .is-stuck .nav-bar { align-items: flex-start; }
     .nav-links ul { gap: 18px; }
     .nav-links a { font-size: 1.1rem; }
     .footer { padding: 22px 20px 14px; }
