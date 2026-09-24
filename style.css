@@ -1,4 +1,4 @@
-/* ===== Tokens ===== */
+/*  Tokens  */
 :root {
     --ink: #2a0b5c;          /* headings */
     --violet: #4c119c;       /* buttons */
@@ -48,7 +48,7 @@ a { color: inherit; text-decoration: none; }
     scroll-margin-top: calc(var(--header-h) - 30px);
 }
 
-/* ===== Sticky nav =====
+/*  Sticky nav 
    Fixed so it follows the page. At the top it's transparent and shows the
    design's rule; once scrolled it becomes a frosted material and the hard
    rule is replaced with a soft scroll-edge fade. */
@@ -174,7 +174,7 @@ a { color: inherit; text-decoration: none; }
 
 .is-stuck .nav-indicator { bottom: 4px; }
 
-/* ===== Buttons ===== */
+/*  Buttons  */
 .btn {
     display: inline-block;
     background: var(--violet);
@@ -185,6 +185,7 @@ a { color: inherit; text-decoration: none; }
     letter-spacing: .01em;
     padding: 8px 42px;
     transition: background .2s, transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+    border-radius: 25px;
 }
 
 .btn:hover {
@@ -198,7 +199,7 @@ a { color: inherit; text-decoration: none; }
     transition: transform .1s ease-out;
 }
 
-/* ===== Home ===== */
+/*  Home  */
 .home {
     padding-top: var(--header-h);
     padding-bottom: 80px;
@@ -266,7 +267,7 @@ a { color: inherit; text-decoration: none; }
 .petal--r2 { --x: 466; --y: 270; --w: 144; --h: 116; --s: .75;  right: -48px; top: 255px;    transform: rotate(20deg); }
 .petal--bl { --x: 58;  --y: 214; --w: 152; --h: 158; --s: .65;  left: -40px;  bottom: -30px; transform: rotate(70deg); }
 
-/* ===== Products ===== */
+/*  Products  */
 .products {
     min-height: 820px;
     padding-top: 90px;
@@ -387,7 +388,7 @@ a { color: inherit; text-decoration: none; }
     font-size: 1.1rem;
 }
 
-/* ===== Footer ===== */
+/*  Footer  */
 .footer-wrap {
     position: relative;
     overflow: hidden;
@@ -505,7 +506,7 @@ a { color: inherit; text-decoration: none; }
 .legal a { text-decoration: underline; text-underline-offset: 2px; }
 .legal a:hover { color: var(--violet); }
 
-/* ===== Full screen =====
+/*  Full screen 
    index.js adds .is-fullscreen to <html> when the browser is full screen (F11).
    The layout then stretches to use the whole display instead of sitting in
    the fixed 1040px column. */
@@ -576,7 +577,7 @@ a { color: inherit; text-decoration: none; }
 
 .is-fullscreen .footer { max-width: var(--container); }
 
-/* ===== Responsive ===== */
+/*  Responsive  */
 @media (max-width: 860px) {
     .hero,
     .product { grid-template-columns: 1fr; }
@@ -603,7 +604,7 @@ a { color: inherit; text-decoration: none; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
 
-/* ===== Accessibility preferences ===== */
+/*  Accessibility preferences  */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
