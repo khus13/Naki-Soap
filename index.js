@@ -133,7 +133,7 @@ function setActive(link) {
 }
 
 // Which section is under the nav right now?
-const sections = ["home", "products", "contact", "about"].map((id) => document.getElementById(id));
+const sections = ["home", "products", "about"].map((id) => document.getElementById(id));
 let currentSection = "home";
 let followScroll = true;
 

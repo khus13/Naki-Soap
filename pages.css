@@ -1,4 +1,4 @@
-/* ===== About + Contact pages =====
+/* ===== About page =====
    Loaded after style.css. Everything is scoped under .sub so Home,
    Products and the footer are untouched. All type on these pages is EB
    Garamond, except "Hello, we're Naki" (Magnolia Script) and
@@ -100,143 +100,6 @@
 
 .sub .reveal.is-in { opacity: 1; transform: none; }
 
-/* ================= CONTACT ================= */
-.contact {
-    position: relative;
-    overflow: hidden;
-    padding: calc(var(--header-h) + 50px) 16px 120px;
-    min-height: 100vh;
-}
-
-.contact .wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(30px, 6vw, 90px);
-    align-items: start;
-}
-
-.contact-info h1 {
-    font-weight: 600;
-    color: var(--ink);
-    font-size: clamp(2rem, 3.6vw, 2.6rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-    margin-bottom: 16px;
-}
-
-.contact-info > p { max-width: 400px; }
-
-.reach { list-style: none; margin: 20px 0 34px; display: grid; gap: 4px; }
-
-.reach a {
-    font-size: 1.12rem;
-    color: var(--body-ink);
-    transition: color .2s;
-}
-.reach a:hover { color: var(--violet); }
-
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 28px;
-}
-
-.info-grid h3 {
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--ink);
-    margin-bottom: 8px;
-}
-
-.info-grid p { font-size: 1rem; }
-
-.socials--page { margin-top: 2px; }
-
-/* star rating: a real control, filled on hover and press */
-.stars { display: flex; gap: 4px; margin-top: 2px; }
-
-.star {
-    width: 30px;
-    height: 30px;
-    padding: 2px;
-    border: 0;
-    background: none;
-    cursor: pointer;
-    color: #3a0f86;
-    transition: transform .35s var(--ease-out);
-}
-
-.star svg { width: 100%; height: 100%; fill: transparent; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; transition: fill .2s; }
-.star.is-on svg { fill: currentColor; }
-.star:hover { transform: scale(1.12); }
-.star:active { transform: scale(.88); transition: transform .1s ease-out; }
-
-.rating-note { display: block; min-height: 1.3em; margin-top: 6px; font-size: .95rem; color: var(--body-ink); }
-
-/* form: frosted lilac card, like the design */
-.form-card {
-    background: rgba(240, 232, 252, .72);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, .6);
-    border-radius: 26px;
-    padding: 28px 28px 26px;
-    box-shadow: 0 14px 40px -14px rgba(76, 17, 156, .25);
-}
-
-.form-card h2 { font-size: 1.7rem; margin-bottom: 4px; }
-.form-card .sub-line { text-align: left; font-size: 1rem; margin-bottom: 20px; }
-
-.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-.field label {
-    position: absolute;
-    width: 1px; height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-}
-
-.field input,
-.field textarea {
-    width: 100%;
-    font: inherit;
-    font-size: 1.05rem;              /* 16px+ keeps iOS from zooming in */
-    color: var(--ink);
-    background: #fffaf0;
-    border: 1.5px solid transparent;
-    border-radius: 10px;
-    padding: 10px 14px;
-    transition: border-color .2s, box-shadow .3s var(--ease-out);
-}
-
-.field textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
-.field input::placeholder,
-.field textarea::placeholder { color: #a99abf; }
-.field input:hover,
-.field textarea:hover { border-color: var(--rule); }
-
-.field input:focus,
-.field textarea:focus {
-    outline: none;
-    border-color: var(--violet);
-    box-shadow: 0 0 0 4px rgba(76, 17, 156, .14);
-}
-
-.field.has-error input,
-.field.has-error textarea { border-color: #b4324b; }
-
-.field .error { display: none; font-size: .92rem; color: #a12a42; }
-.field.has-error .error { display: block; }
-
-.form-card .btn { width: 100%; padding: 10px 20px; margin-top: 6px; }
-button.btn { border: 0; cursor: pointer; font-family: var(--serif); }
-button.btn[disabled] { opacity: .6; cursor: default; }
-
-.form-status { margin-top: 12px; text-align: center; font-size: 1rem; color: var(--body-ink); }
-.form-status:empty { display: none; }
-.form-status.is-ok { color: #2f6b4a; }
-
 /* ================= ABOUT ================= */
 .intro {
     padding: calc(var(--header-h) + 50px) 16px 20px;
@@ -304,16 +167,12 @@ button.btn[disabled] { opacity: .6; cursor: default; }
 /* ================= Full screen ================= */
 .is-fullscreen .sub .band,
 .is-fullscreen .sub .intro,
-.is-fullscreen .sub .about-block,
-.is-fullscreen .sub .contact { padding-left: var(--gutter); padding-right: var(--gutter); }
+.is-fullscreen .sub .about-block { padding-left: var(--gutter); padding-right: var(--gutter); }
 
 .is-fullscreen .hello { font-size: clamp(3.2rem, 6vw, 7.5rem); }
-.is-fullscreen .contact { display: flex; align-items: center; }
-.is-fullscreen .contact .wrap { width: 100%; }
 
 /* ================= Responsive ================= */
 @media (max-width: 860px) {
-    .contact .wrap,
     .about-block .wrap { grid-template-columns: 1fr; }
 
     .about-block { padding: 60px 16px; }
@@ -323,9 +182,6 @@ button.btn[disabled] { opacity: .6; cursor: default; }
 
 @media (max-width: 560px) {
     .sub { --header-h: 136px; }
-    .info-grid { grid-template-columns: 1fr; }
-    .field-row { grid-template-columns: 1fr; gap: 0; }
-    .field-row .field { margin-bottom: 14px; }
     .stats { grid-template-columns: 1fr; gap: 18px; }
 }
 
@@ -333,15 +189,9 @@ button.btn[disabled] { opacity: .6; cursor: default; }
 @media (prefers-reduced-motion: reduce) {
     .sub .reveal { transform: none; }
     .sub .photo img,
-    .star { transition: none; }
     .sub .photo:hover img { transform: none; }
 }
 
-@media (prefers-reduced-transparency: reduce) {
-    .form-card { background: #f3ecfb; -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-
 @media (prefers-contrast: more) {
-    .sub p, .reach a, .stat span { color: #5a4380; }
-    .field input, .field textarea { border-color: var(--nav-active); }
+    .sub p, .stat span { color: #5a4380; }
 }
