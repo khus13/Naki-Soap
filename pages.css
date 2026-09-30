@@ -1,0 +1,197 @@
+/* ===== About page =====
+   Loaded after style.css. Everything is scoped under .sub so Home,
+   Products and the footer are untouched. All type on these pages is EB
+   Garamond, except "Hello, we're Naki" (Magnolia Script) and
+   "YOUR JOURNEY STARTS HERE" (Cinzel Decorative). */
+
+/* Magnolia Script isn't on Google Fonts. Drop MagnoliaScript.woff2 / .otf into
+   /fonts and it is picked up here; until then a script fallback is used. */
+@font-face {
+    font-family: "Magnolia Script";
+    src: local("Magnolia Script"), local("MagnoliaScript"),
+         url("fonts/MagnoliaScript.woff2") format("woff2"),
+         url("fonts/MagnoliaScript.otf") format("opentype");
+    font-display: swap;
+}
+
+.sub {
+    --script: "Magnolia Script", "Snell Roundhand", "Segoe Script", cursive;
+    --display: "Cinzel Decorative", "Cinzel", Georgia, serif;
+    --body-ink: #7a62a3;
+    --radius: 22px;
+    --shadow: 0 18px 40px -16px rgba(42, 11, 92, .35);
+}
+
+.sub .band {
+    position: relative;
+    overflow: hidden;
+    padding: 0 16px;
+}
+
+.sub .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+/* ----- type ----- */
+.sub h2 {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+}
+
+.sub p {
+    color: var(--body-ink);
+    font-size: 1.12rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/* ----- photos ----- */
+.sub .photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: #e9e1f0;
+}
+
+.sub .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .9s var(--ease-out);
+}
+
+.sub .photo:hover img { transform: scale(1.03); }
+
+/* Two photos, one overlapping the corner of the other (as in the design) */
+.collage {
+    position: relative;
+    padding-bottom: 14%;
+}
+
+.collage .photo--big { width: 82%; aspect-ratio: 4 / 3; }
+
+.collage .photo--small {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 52%;
+    aspect-ratio: 4 / 3;
+    border: 7px solid #fffdf9;
+    border-radius: 26px;
+}
+
+.collage--flip .photo--big { margin-left: auto; }
+.collage--flip .photo--small { right: auto; left: 0; }
+
+/* ----- reveal on scroll (classes added by pages.js) ----- */
+.sub .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .7s var(--ease-out), transform .9s var(--ease-out);
+    transition-delay: var(--d, 0s);
+}
+
+.sub .reveal.is-in { opacity: 1; transform: none; }
+
+/* ================= ABOUT ================= */
+.intro {
+    padding: calc(var(--header-h) + 50px) 16px 20px;
+    text-align: center;
+}
+
+.eyebrow-display {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(.8rem, 1.5vw, 1rem);
+    letter-spacing: .22em;           /* all caps: open tracking */
+    text-transform: uppercase;
+    color: var(--nav);
+}
+
+.hello {
+    font-family: var(--script);
+    font-weight: 400;
+    color: var(--ink);
+    font-size: clamp(3.2rem, 8vw, 5.6rem);
+    line-height: 1.1;
+    letter-spacing: 0;               /* joined script is never tracked */
+    margin: 6px 0 12px;
+}
+
+.intro p {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 760px;
+    margin: 40px auto 0;
+}
+
+.stat b {
+    display: block;
+    font-weight: 600;
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.1;
+    font-variant-numeric: lining-nums;
+}
+
+.stat span { font-size: 1.05rem; color: var(--body-ink); }
+
+.about-block { padding: 90px 16px; }
+
+.about-block .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(30px, 6vw, 90px);
+}
+
+.about-block h2 { margin-bottom: 20px; }
+
+.about-block--first { padding-top: 80px; }
+.about-block--last { padding-bottom: 130px; }
+
+/* ================= Full screen ================= */
+.is-fullscreen .sub .band,
+.is-fullscreen .sub .intro,
+.is-fullscreen .sub .about-block { padding-left: var(--gutter); padding-right: var(--gutter); }
+
+.is-fullscreen .hello { font-size: clamp(3.2rem, 6vw, 7.5rem); }
+
+/* ================= Responsive ================= */
+@media (max-width: 860px) {
+    .about-block .wrap { grid-template-columns: 1fr; }
+
+    .about-block { padding: 60px 16px; }
+    /* text always follows its photos when stacked */
+    .about-block--text-first .copy { order: 2; }
+}
+
+@media (max-width: 560px) {
+    .sub { --header-h: 136px; }
+    .stats { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* ================= Accessibility preferences ================= */
+@media (prefers-reduced-motion: reduce) {
+    .sub .reveal { transform: none; }
+    .sub .photo img,
+    .sub .photo:hover img { transform: none; }
+}
+
+@media (prefers-contrast: more) {
+    .sub p, .stat span { color: #5a4380; }
+}

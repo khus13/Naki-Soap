@@ -133,13 +133,13 @@ function setActive(link) {
 }
 
 // Which section is under the nav right now?
-const sections = ["home", "products", "contact"].map((id) => document.getElementById(id));
+const sections = ["home", "products", "about"].map((id) => document.getElementById(id));
 let currentSection = "home";
 let followScroll = true;
 
 function sectionInView() {
     const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-    if (atBottom) return "contact";
+    if (atBottom) return "about";
     const line = window.innerHeight * 0.4;
     let id = "home";
     for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
@@ -222,6 +222,12 @@ const trackX = new Spring(0, (x) => {
 const stepSize = () => track.clientWidth + GAP;
 const minX = () => -(products.length - 1) * stepSize();
 
+// fade each dot by how far it is from the active one
+function updateDots(index) {
+    dots.forEach((dot, i) => dot.style.setProperty("--dist", Math.abs(i - index)));
+}
+updateDots(current);
+
 let textTimer;
 function showText(index, direction) {
     clearTimeout(textTimer);
@@ -242,6 +248,7 @@ function goTo(index, { velocity = 0, damping = 1 } = {}) {
         dots[current].removeAttribute("aria-current");
         dots[index].classList.add("is-active");
         dots[index].setAttribute("aria-current", "true");
+        updateDots(index);
         showText(index, index - current);
         current = index;
     }

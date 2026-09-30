@@ -6,9 +6,11 @@
         <title>Naki by Arzeda Co.</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="pages.css">
         <script src="index.js" defer></script>
+        <script src="extras.js" defer></script>
     </head>
     <body>
 
@@ -20,7 +22,6 @@
                     <ul>
                         <li><a href="#home" data-section="home" class="active" aria-current="page">Home</a></li>
                         <li><a href="#products" data-section="products">Products</a></li>
-                        <li><a href="#contact" data-section="contact">Contact</a></li>
                         <li><a href="#about" data-section="about">About Us</a></li>
                     </ul>
                     <span class="nav-indicator" aria-hidden="true"></span>
@@ -74,13 +75,71 @@
                 <div class="product-info">
                     <h2 class="product-title" aria-live="polite">Germicidal Soap</h2>
                     <p class="product-desc">lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaeca. lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaeca. The seasons too overrated, unsa font ma suggest nimo</p>
-                    <a href="#contact" class="btn btn--order">Order Now</a>
+                    <a href="#footer-contact" class="btn btn--order">Order Now</a>
                 </div>
             </div>
         </section>
 
+        <!-- ABOUT (styled by pages.css) -->
+        <div class="sub">
+            <!-- INTRO -->
+            <section id="about" class="intro">
+                <p class="eyebrow-display" data-reveal>Your journey starts here</p>
+                <h1 class="hello" data-reveal style="--d:.06s">Hello, we're Naki</h1>
+                <p data-reveal style="--d:.12s">lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaecat laborum in voluptas tempore est incididunt</p>
+
+                <div class="stats" data-reveal style="--d:.18s">
+                    <div class="stat"><b>100%</b><span>Organic Ingredients</span></div>
+                    <div class="stat"><b>200+</b><span>Client Reviews</span></div>
+                    <div class="stat"><b>100%</b><span>Organic Ingredients</span></div>
+                </div>
+            </section>
+
+            <!-- ABOUT US -->
+            <section class="about-block about-block--first">
+                <div class="wrap">
+                    <div class="collage" data-reveal>
+                        <div class="photo photo--big"><img src="images/many_soap.png" alt="Rows of wrapped Naki bars in blue and cream"></div>
+                        <div class="photo photo--small"><img src="images/three_soap.png" alt="The three Naki bars: Germicidal, Sensitive and Glowing" loading="lazy"></div>
+                    </div>
+                    <div class="copy" data-reveal style="--d:.1s">
+                        <h2>About Us</h2>
+                        <p>lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaecat laborum in voluptas tempore est incididunt et id ducimus deserunt eum in ducimus dolor fuga dolores consequat sit anim sit nobis esse quos minus omnis laborum deserunt do ut temporibus proident anim eum omnis quas iusto</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MISSION -->
+            <section class="about-block about-block--text-first" id="mission">
+                <div class="wrap">
+                    <div class="copy" data-reveal>
+                        <h2>Our Mission</h2>
+                        <p>lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaecat laborum in voluptas tempore est incididunt et id ducimus deserunt eum in ducimus dolor fuga dolores consequat sit anim sit nobis esse quos minus omnis laborum deserunt do ut temporibus proident anim eum omnis quas iusto</p>
+                    </div>
+                    <div class="collage collage--flip" data-reveal style="--d:.1s">
+                        <div class="photo photo--big"><img src="images/soapMaking.png" alt="Hands cutting a slab of handmade soap into bars" loading="lazy"></div>
+                        <div class="photo photo--small"><img src="images/soap_board.png" alt="Soap bars beside sliced bars topped with dried rose petals" loading="lazy"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISION -->
+            <section class="about-block about-block--last" id="vision">
+                <div class="wrap">
+                    <div class="collage" data-reveal>
+                        <div class="photo photo--big"><img src="images/Bath-1.png" alt="Rich soap lather on skin" loading="lazy"></div>
+                        <div class="photo photo--small"><img src="images/Bath.png" alt="A person washing their shoulder with a blue Naki bar" loading="lazy"></div>
+                    </div>
+                    <div class="copy" data-reveal style="--d:.1s">
+                        <h2>Our Vision</h2>
+                        <p>lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaecat laborum in voluptas tempore est incididunt et id ducimus deserunt eum in ducimus dolor fuga dolores consequat sit anim sit nobis esse quos minus omnis laborum deserunt do ut temporibus proident anim eum omnis quas iusto</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
         <!-- FOOTER (big-petal.png behind the card) -->
-        <footer id="contact" class="footer-wrap">
+        <footer class="footer-wrap">
             <div class="footer">
                 <div class="footer-top">
                     <div class="footer-brand">
@@ -102,9 +161,9 @@
                         <a href="#products" data-product="1">Sensitive Skin</a>
                         <a href="#products" data-product="2">Glowing Skin</a>
                     </div>
-                    <div class="footer-col" id="about">
+                    <div class="footer-col">
                         <h4>Others</h4>
-                        <a href="#">Mision, Vision</a>
+                        <a href="#mission">Mision, Vision</a>
                         <a href="#">Impact Stories</a>
                         <a href="#">Reviews</a>
                     </div>
