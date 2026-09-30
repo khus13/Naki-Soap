@@ -194,15 +194,15 @@ onScroll();
 const products = [
     {
         title: "Germicidal Soap",
-        desc: "",
+        desc: "Germicidal Soap (Blue) is thoughtfully crafted to provide everyday protection against germs while leaving the skin feeling fresh, clean, and revitalized. It helps address common concerns such as unpleasant body odor, making it a refreshing companion for daily hygiene.",
     },
     {
         title: "Sensitive Skin",
-        desc: "",
+        desc: "Sensitive Skin is lovingly formulated for delicate and easily irritated skin, especially skin prone to dryness, flakiness, itchiness, and eczema-related discomfort. Made with pure, gentle, and skin-friendly ingredients, it leaves out harsh and unnecessary additives, offering a soothing cleanse without stripping away the skin’s natural moisture.",
     },
     {
         title: "Glowing Skin",
-        desc: "",
+        desc: "Glowing Skin is a nourishing blend infused with delicate specks of real dried Blue Ternate petals, thoughtfully crafted to pamper skin that craves deep moisture and a naturally radiant glow. Each gentle wash envelops the skin in a soothing botanical experience, helping replenish lost moisture while leaving it feeling soft, supple, and beautifully refreshed.",
     },
 ];
 
