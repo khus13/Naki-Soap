@@ -194,15 +194,15 @@ onScroll();
 const products = [
     {
         title: "Germicidal Soap",
-        desc: "lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaeca. lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaeca. The seasons too overrated, unsa font ma suggest nimo",
+        desc: "",
     },
     {
         title: "Sensitive Skin",
-        desc: "lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaeca. Gentle on delicate skin, made with soothing natural oils. The seasons too overrated, unsa font ma suggest nimo",
+        desc: "",
     },
     {
         title: "Glowing Skin",
-        desc: "lorem ipsum dolor sit amet consectetur adipiscing elit provident ut aute imperdiet eligendi occaeca. Brightens and nourishes for a natural glow. The seasons too overrated, unsa font ma suggest nimo",
+        desc: "",
     },
 ];
 
