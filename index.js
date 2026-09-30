@@ -222,6 +222,12 @@ const trackX = new Spring(0, (x) => {
 const stepSize = () => track.clientWidth + GAP;
 const minX = () => -(products.length - 1) * stepSize();
 
+// fade each dot by how far it is from the active one
+function updateDots(index) {
+    dots.forEach((dot, i) => dot.style.setProperty("--dist", Math.abs(i - index)));
+}
+updateDots(current);
+
 let textTimer;
 function showText(index, direction) {
     clearTimeout(textTimer);
@@ -242,6 +248,7 @@ function goTo(index, { velocity = 0, damping = 1 } = {}) {
         dots[current].removeAttribute("aria-current");
         dots[index].classList.add("is-active");
         dots[index].setAttribute("aria-current", "true");
+        updateDots(index);
         showText(index, index - current);
         current = index;
     }

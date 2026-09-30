@@ -338,19 +338,22 @@ a { color: inherit; text-decoration: none; }
     margin-top: 4px;
 }
 
+/* one colour; each dot fades the further it sits from the active one (--dist set in index.js) */
 .dot {
+    --dist: 0;
     width: 14px;
     height: 14px;
+    padding: 0;
     border: 0;
     border-radius: 50%;
-    background: #d9c4f5;
+    background: #7b5fb3;
+    opacity: calc(1 - var(--dist) * .3);
     cursor: pointer;
-    transition: background .25s, transform .35s var(--ease-out);
+    transition: opacity .35s var(--ease-out), transform .35s var(--ease-out);
 }
 
 .dot:hover { transform: scale(1.15); }
 .dot:active { transform: scale(.85); transition: transform .1s ease-out; }
-.dot.is-active { background: #7b5fb3; }
 
 .product-info { display: flex; flex-direction: column; }
 
@@ -627,5 +630,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (prefers-contrast: more) {
     .site-header::before { background: #fbf9f5; border-bottom: 1px solid var(--nav-active); }
+    .dot { opacity: calc(1 - var(--dist) * .2); }
     .hero p, .product-desc { color: #6a4f9e; }
 }
