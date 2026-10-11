@@ -133,13 +133,13 @@ function setActive(link) {
 }
 
 // Which section is under the nav right now?
-const sections = ["home", "products", "about"].map((id) => document.getElementById(id));
+const sections = ["home", "products", "about", "reviews"].map((id) => document.getElementById(id));
 let currentSection = "home";
 let followScroll = true;
 
 function sectionInView() {
     const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-    if (atBottom) return "about";
+    if (atBottom) return "reviews";
     const line = window.innerHeight * 0.4;
     let id = "home";
     for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;

@@ -202,7 +202,7 @@ a { color: inherit; text-decoration: none; }
 /*  Home  */
 .home {
     padding-top: var(--header-h);
-    padding-bottom: 80px;
+    padding-bottom: 40px;
 }
 
 .hero {
@@ -213,8 +213,8 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: start;
-    gap: 40px;
-    padding: 50px 0 20px;
+    gap: 32px;
+    padding: 24px 0 8px;
 }
 
 .hero h1 {
@@ -227,7 +227,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero p {
-    margin: 28px 0 38px;
+    margin: 20px 0 26px;
     font-size: 1.12rem;
     line-height: 1.5;
     text-align: justify;
@@ -269,9 +269,10 @@ a { color: inherit; text-decoration: none; }
 
 /*  Products  */
 .products {
-    min-height: 820px;
-    padding-top: 90px;
-    padding-bottom: 120px;
+    padding-top: 40px;
+    padding-bottom: 44px;
+    overflow: visible;
+    overflow-x: clip;     /* petals may spill up/down into neighbours, never sideways */
 }
 
 .dried-petals {
@@ -279,7 +280,7 @@ a { color: inherit; text-decoration: none; }
     width: 640px;
     max-width: none;
     right: -210px;
-    top: 270px;
+    top: 90px;
     transform: rotate(-90deg);
     opacity: .9;
     z-index: 0;
@@ -293,10 +294,10 @@ a { color: inherit; text-decoration: none; }
     margin: 0 auto;
     display: grid;
     grid-template-columns: 0.9fr 1fr;
-    gap: 50px;
+    gap: 36px;
 }
 
-.product-carousel { padding-top: 60px; min-width: 0; }
+.product-carousel { padding-top: 20px; min-width: 0; }
 
 /* carousel viewport: padding leaves room for the drop shadow */
 .slides {
@@ -367,7 +368,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .product-desc {
-    margin-top: 40px;
+    margin-top: 28px;
     font-size: 1.12rem;
     line-height: 1.5;
     text-align: justify;
@@ -386,7 +387,7 @@ a { color: inherit; text-decoration: none; }
 
 .btn--order {
     align-self: flex-end;
-    margin-top: 100px;
+    margin-top: 28px;
     padding: 8px 40px;
     font-size: 1.1rem;
 }
@@ -395,7 +396,7 @@ a { color: inherit; text-decoration: none; }
 .footer-wrap {
     position: relative;
     overflow: hidden;
-    padding: 110px 16px 34px;
+    padding: 88px 16px 28px;
     scroll-margin-top: var(--header-h);
 }
 
@@ -431,7 +432,7 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     grid-template-columns: 2.2fr 1fr 1fr 1fr;
     gap: 30px;
-    padding-bottom: 36px;
+    padding-bottom: 28px;
 }
 
 .footer-logo {
@@ -587,7 +588,7 @@ a { color: inherit; text-decoration: none; }
 
     .hero h1 { white-space: normal; }
     .product-carousel { padding-top: 0; }
-    .btn--order { align-self: center; margin-top: 40px; }
+    .btn--order { align-self: center; margin-top: 28px; }
     .dried-petals { width: 480px; right: -260px; top: auto; bottom: 60px; opacity: .5; }
 
     .footer-top { grid-template-columns: 1fr 1fr; }

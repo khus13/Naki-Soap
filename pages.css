@@ -92,18 +92,18 @@
 .collage--flip .photo--small { right: auto; left: 0; }
 
 /* ----- reveal on scroll (classes added by pages.js) ----- */
-.sub .reveal {
+.reveal {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity .7s var(--ease-out), transform .9s var(--ease-out);
     transition-delay: var(--d, 0s);
 }
 
-.sub .reveal.is-in { opacity: 1; transform: none; }
+.reveal.is-in { opacity: 1; transform: none; }
 
 /* ================= ABOUT ================= */
 .intro {
-    padding: calc(var(--header-h) + 50px) 16px 20px;
+    padding: calc(var(--header-h) + 30px) 16px 10px;
     text-align: center;
 }
 
@@ -136,7 +136,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     max-width: 760px;
-    margin: 40px auto 0;
+    margin: 28px auto 0;
 }
 
 .stat b {
@@ -151,19 +151,19 @@
 
 .stat span { font-size: 1.05rem; color: var(--body-ink); }
 
-.about-block { padding: 90px 16px; }
+.about-block { padding: 38px 16px; }
 
 .about-block .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: clamp(30px, 6vw, 90px);
+    gap: clamp(24px, 4vw, 56px);
 }
 
 .about-block h2 { margin-bottom: 20px; }
 
-.about-block--first { padding-top: 80px; }
-.about-block--last { padding-bottom: 130px; }
+.about-block--first { padding-top: 30px; }
+.about-block--last { padding-bottom: 44px; }
 
 /* ================= Full screen ================= */
 .is-fullscreen .sub .band,
@@ -176,7 +176,7 @@
 @media (max-width: 860px) {
     .about-block .wrap { grid-template-columns: 1fr; }
 
-    .about-block { padding: 60px 16px; }
+    .about-block { padding: 36px 16px; }
     /* text always follows its photos when stacked */
     .about-block--text-first .copy { order: 2; }
 }
@@ -188,11 +188,179 @@
 
 /* ================= Accessibility preferences ================= */
 @media (prefers-reduced-motion: reduce) {
-    .sub .reveal { transform: none; }
+    .reveal { transform: none; }
     .sub .photo img,
     .sub .photo:hover img { transform: none; }
 }
 
 @media (prefers-contrast: more) {
     .sub p, .stat span { color: #5a4380; }
+}
+
+/* ================= REVIEWS ================= */
+.reviews {
+    padding-top: 32px;
+    padding-bottom: 16px;
+    text-align: center;
+}
+
+.reviews .wrap { position: relative; z-index: 2; max-width: var(--container); margin: 0 auto; }
+
+.reviews h2 {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+}
+
+.reviews .wrap > p { max-width: 520px; margin: 10px auto 18px; font-size: 1.12rem; line-height: 1.5; }
+
+/* slideshow: every card sits in the same grid cell, the active one fades in */
+.review-carousel {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 720px) 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.review-track {
+    display: grid;
+    grid-column: 2;
+    padding: 6px 0 20px;          /* room for the card shadow */
+}
+
+.review-control {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    background: var(--cream);
+    color: var(--violet);
+    font: 600 1.8rem/1 var(--serif);
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .2s;
+}
+
+.review-control:hover { background: var(--violet); color: #fff; }
+.review-control:active { transform: scale(.92); }
+.review-control--prev { grid-column: 1; grid-row: 1; }
+.review-control--next { grid-column: 3; grid-row: 1; }
+
+.review-card {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity .6s, transform .8s var(--ease-out), visibility .6s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 26px 24px;
+    text-align: left;
+    background: var(--cream);
+    border: 1px solid #ddd3e6;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px -16px rgba(42, 11, 92, .35);
+}
+
+.review-card:not(.is-active) {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 100%;
+}
+
+.review-card.is-active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.review-head { display: flex; align-items: center; gap: 12px; }
+
+.review-head::after {             /* the design's quote mark */
+    content: "\201D";
+    align-self: flex-start;
+    margin-left: auto;
+    font-family: var(--nav-font);
+    font-size: 4rem;
+    line-height: .7;
+    color: var(--rule);
+}
+
+.review-avatar {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--violet);
+    color: #fff;
+    font-weight: 600;
+}
+
+.review-head b { display: block; color: var(--ink); font-weight: 600; line-height: 1.2; }
+.review-head small { font-size: .85rem; color: var(--lilac-soft); }
+.review-card p { font-size: 1.05rem; line-height: 1.5; color: #7a62a3; }
+
+.review-stars { font-size: 1.15rem; line-height: 1; letter-spacing: .14em; color: #e0a526; }
+
+.review-dots {
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+
+@media (max-width: 560px) {
+    .review-carousel {
+        grid-template-columns: 32px minmax(0, 1fr) 32px;
+        gap: 6px;
+    }
+
+    .review-control { width: 32px; height: 32px; font-size: 1.5rem; }
+    .review-card { padding: 18px 16px 20px; }
+    .review-avatar { width: 40px; height: 40px; }
+    .review-head small { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .review-card { transition: none; }
+}
+
+
+/* ================= Scattered petals =================
+   One pile of petal-bg.png per section, anchored to a side edge and scattering
+   toward the content. --rot turns it (90deg = pile on the left, -90deg = pile
+   on the right); sides alternate down the page, starting from Products (right). */
+.intro, .about-block { position: relative; overflow-x: clip; }
+.reviews { overflow: visible; overflow-x: clip; }
+
+.intro, .about-block, .reviews { --off: 90px; --pw: 560px; }
+
+.intro::before, .about-block::before, .reviews::before {
+    content: "";
+    position: absolute;
+    z-index: -1;                     /* behind text and photos */
+    left: var(--x);
+    top: 50%;
+    width: var(--pw);
+    aspect-ratio: 720 / 412;
+    background: url("images/petal-bg.png") no-repeat center / contain;
+    transform: translate(-50%, -50%) rotate(var(--rot));
+    pointer-events: none;
+}
+
+.intro, #mission, .reviews { --rot: 90deg;  --x: var(--off); }
+.about-block--first, .about-block--last { --rot: -90deg; --x: calc(100% - var(--off)); }
+
+@media (max-width: 860px) {
+    .intro, .about-block, .reviews { --pw: 380px; --off: 60px; }
+    .intro::before, .about-block::before, .reviews::before { opacity: .6; }
 }
