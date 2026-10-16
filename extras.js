@@ -59,7 +59,7 @@ const makeReviewCard = ({ name, meta, text }) => {
 
 track.replaceChildren(...reviews.map(makeReviewCard));
 
-// Slideshow: one review at a time, fades to the next every 5s; dots jump to any review
+// Slideshow: one review at a time, fades to the next every 3s; dots jump to any review
 const cards = [...track.children];
 const dotsEl = document.querySelector(".review-dots");
 reviews.forEach(({ name }) => {
@@ -80,7 +80,7 @@ let hovering = false;
 const play = () => {
     clearTimeout(timer);
     if (motionPreference.matches || hovering || carousel.matches(":focus-within") || document.hidden) return;
-    timer = setTimeout(() => show(current + 1), 5000);
+    timer = setTimeout(() => show(current + 1), 3000);
 };
 
 const show = (i) => {

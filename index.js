@@ -367,3 +367,128 @@ viewport.addEventListener("pointercancel", endDrag);
 window.addEventListener("resize", () => trackX.jump(-current * stepSize()));
 
 scheduleAutoplay();
+
+/* Impact stories: keep each photo paired with its own copy */
+const impactStories = [
+    {
+        image: "images/impact-img1.jpg",
+        alt: "Naki's one-year germicidal soap donation to children of Baclayan Elementary School",
+        text: "From the time we conceptualized Naki as \"your daily dose of vitamins in a soap\", it came naturally for us, sisters, to share our dreams of giving a premium quality soap in our community. For one, we have given a one year supply of germicidal soap to the children of BAES ( Baclayan Elementary School ) as part of the school's campaign of cleanliness.",
+    },
+    {
+        image: "images/teacher.png",
+        alt: "Naki soap set given as a prize at a local school activity",
+        text: "Naki has also sponsored local school activities by giving away as prizes Naki set of three soap variants to the teacher's activities on the same locality.",
+    },
+    {
+        image: "images/gandang_senyora.jpg",
+        alt: "Baclayanon's Gandang Senyora beauty and brains contest",
+        text: "We have also shared the same to the Baclayanon's Gandang Senyora beauty and brains contest to acknowledge the deserving mother with a cause.",
+    },
+    {
+        image: "images/mr-gay-sugbo.jpg",
+        alt: "Mr. Gay Sugbo 2026 advocacy contest",
+        text: "Then came Mr. Gay Sugbo 2026, an annual advocacy contest where we sponsored the \"Face of Naki\" as part of the minor awards to inspire the LGBTQIA + community that we honor the advocacy that they are fighting for.",
+    },
+];
+
+const impactCarousel = document.querySelector(".impact-carousel");
+let impactImage = impactCarousel.querySelector(".impact-image.is-active");
+let impactNextImage = impactCarousel.querySelector(".impact-image--next");
+const impactCopy = document.querySelector(".impact-copy-text");
+const impactMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+let impactCurrent = 0;
+let impactTimer;
+let impactTransitionTimer;
+let impactCopyTimer;
+let impactHovering = false;
+
+function scheduleImpactAutoplay() {
+    clearTimeout(impactTimer);
+    if (
+        impactMotionPreference.matches ||
+        impactHovering ||
+        impactCarousel.matches(":focus-within") ||
+        document.hidden
+    ) return;
+    impactTimer = setTimeout(() => showImpactStory(impactCurrent + 1), 5000);
+}
+
+function showImpactStory(index) {
+    const nextIndex = (index + impactStories.length) % impactStories.length;
+    const story = impactStories[nextIndex];
+    clearTimeout(impactTransitionTimer);
+    clearTimeout(impactCopyTimer);
+
+    const preload = new Image();
+    preload.onload = () => {
+        const startTransition = () => {
+            impactNextImage.src = story.image;
+            impactCopy.classList.add("is-changing");
+
+            const finishTransition = () => {
+                impactImage.classList.remove("is-active");
+                impactImage.classList.add("impact-image--next");
+                impactImage.alt = "";
+                impactImage.setAttribute("aria-hidden", "true");
+
+                impactNextImage.classList.remove("impact-image--next");
+                impactNextImage.classList.add("is-active");
+                impactNextImage.alt = story.alt;
+                impactNextImage.removeAttribute("aria-hidden");
+
+                [impactImage, impactNextImage] = [impactNextImage, impactImage];
+                impactCurrent = nextIndex;
+                impactCarousel.classList.remove("is-transitioning");
+                impactCopy.textContent = story.text;
+                impactCopy.classList.remove("is-changing");
+                scheduleImpactAutoplay();
+            };
+
+            if (impactMotionPreference.matches) {
+                finishTransition();
+                return;
+            }
+
+            requestAnimationFrame(() => {
+                impactCarousel.classList.add("is-transitioning");
+            });
+            impactCopyTimer = setTimeout(() => {
+                impactCopy.textContent = story.text;
+                impactCopy.classList.remove("is-changing");
+            }, 250);
+            impactTransitionTimer = setTimeout(finishTransition, 800);
+        };
+
+        if (typeof preload.decode === "function") {
+            preload.decode().then(startTransition).catch((error) => {
+                console.error(`Unable to decode impact story image: ${story.image}`, error);
+                scheduleImpactAutoplay();
+            });
+        } else {
+            startTransition();
+        }
+    };
+    preload.onerror = () => {
+        console.error(`Unable to load impact story image: ${story.image}`);
+        scheduleImpactAutoplay();
+    };
+    preload.src = story.image;
+}
+
+impactCarousel.addEventListener("pointerenter", (event) => {
+    if (event.pointerType === "mouse") {
+        impactHovering = true;
+        clearTimeout(impactTimer);
+    }
+});
+impactCarousel.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "mouse") {
+        impactHovering = false;
+        scheduleImpactAutoplay();
+    }
+});
+impactCarousel.addEventListener("focusout", () => setTimeout(scheduleImpactAutoplay));
+document.addEventListener("visibilitychange", scheduleImpactAutoplay);
+impactMotionPreference.addEventListener("change", scheduleImpactAutoplay);
+scheduleImpactAutoplay();
