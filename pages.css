@@ -68,7 +68,7 @@
     transition: transform .9s var(--ease-out);
 }
 
-.sub .photo:hover img { transform: scale(1.03); }
+@media (hover: hover) { .sub .photo:hover img { transform: scale(1.03); } }
 
 /* Two photos, one overlapping the corner of the other (as in the design) */
 .collage {
@@ -219,7 +219,7 @@
 }
 
 @media (max-width: 560px) {
-    .sub { --header-h: 136px; }
+    .about-block p { text-align: left; }
     .stats { grid-template-columns: 1fr; gap: 18px; }
 }
 
@@ -286,7 +286,7 @@
     transition: background .2s, color .2s, transform .2s;
 }
 
-.review-control:hover { background: var(--violet); color: #fff; }
+@media (hover: hover) { .review-control:hover { background: var(--violet); color: #fff; } }
 .review-control:active { transform: scale(.92); }
 .review-control--prev { grid-column: 1; grid-row: 1; }
 .review-control--next { grid-column: 3; grid-row: 1; }
@@ -358,13 +358,12 @@
 }
 
 @media (max-width: 560px) {
-    .review-carousel {
-        grid-template-columns: 32px minmax(0, 1fr) 32px;
-        gap: 6px;
-    }
-
-    .review-control { width: 32px; height: 32px; font-size: 1.5rem; }
-    .review-card { padding: 18px 16px 20px; }
+    .review-carousel { grid-template-columns: 44px 1fr 44px; gap: 8px 6px; }
+    .review-track { grid-column: 1 / -1; grid-row: 1; }
+    .review-control--prev,
+    .review-control--next { grid-row: 2; width: 44px; height: 44px; font-size: 1.6rem; }
+    .review-dots { grid-column: 2; grid-row: 2; }
+    .review-card:not(.is-active) { position: relative; top: 0; }
     .review-avatar { width: 40px; height: 40px; }
     .review-head small { display: block; }
 }
