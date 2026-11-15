@@ -461,13 +461,23 @@ a { color: inherit; text-decoration: none; }
 .socials { display: flex; gap: 14px; }
 
 .socials a {
+    display: grid;
+    place-items: center;
     width: 28px;
     height: 28px;
-    color: #3a0f86;
-    transition: color .2s, transform .35s var(--ease-out);
+    border-radius: 50%;
+    background: #3a0f86;
+    color: #fff;
+    transition: transform .35s var(--ease-out), opacity .2s ease;
 }
 
-@media (hover: hover) { .socials a:hover { color: var(--violet); transform: translateY(-2px); } }
+.socials a svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+@media (hover: hover) { .socials a:hover { opacity: .9; transform: translateY(-2px); } }
 .socials a:active { transform: scale(.9); transition: transform .1s ease-out; }
 
 .footer-col {

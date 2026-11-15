@@ -371,8 +371,8 @@ scheduleAutoplay();
 /* Impact stories: keep each photo paired with its own copy */
 const impactStories = [
     {
-        image: "images/impact-img1.jpg",
-        alt: "Naki's one-year germicidal soap donation to children of Baclayan Elementary School",
+        image: "images/impact-img2.jpg",
+        alt: "Naki soap donation activity supporting children in the community",
         text: "From the time we conceptualized Naki as \"your daily dose of vitamins in a soap\", it came naturally for us, sisters, to share our dreams of giving a premium quality soap in our community. For one, we have given a one year supply of germicidal soap to the children of BAES ( Baclayan Elementary School ) as part of the school's campaign of cleanliness.",
     },
     {
@@ -404,19 +404,7 @@ let impactTransitionTimer;
 let impactCopyTimer;
 let impactHovering = false;
 
-function fitImpactPhoto(image) {
-    if (!image.naturalWidth || !image.naturalHeight) {
-        console.error("Unable to determine impact story image dimensions.", image.src);
-        return;
-    }
-    impactPhoto.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
-}
-
-if (impactImage.complete) {
-    fitImpactPhoto(impactImage);
-} else {
-    impactImage.addEventListener("load", () => fitImpactPhoto(impactImage), { once: true });
-}
+impactPhoto.style.aspectRatio = "4 / 3";
 
 function scheduleImpactAutoplay() {
     clearTimeout(impactTimer);
@@ -451,7 +439,6 @@ function showImpactStory(index) {
                 impactNextImage.classList.add("is-active");
                 impactNextImage.alt = story.alt;
                 impactNextImage.removeAttribute("aria-hidden");
-                fitImpactPhoto(preload);
 
                 [impactImage, impactNextImage] = [impactNextImage, impactImage];
                 impactCurrent = nextIndex;
