@@ -393,6 +393,7 @@ const impactStories = [
 ];
 
 const impactCarousel = document.querySelector(".impact-carousel");
+const impactPhoto = impactCarousel.querySelector(".impact-photo");
 let impactImage = impactCarousel.querySelector(".impact-image.is-active");
 let impactNextImage = impactCarousel.querySelector(".impact-image--next");
 const impactCopy = document.querySelector(".impact-copy-text");
@@ -402,6 +403,20 @@ let impactTimer;
 let impactTransitionTimer;
 let impactCopyTimer;
 let impactHovering = false;
+
+function fitImpactPhoto(image) {
+    if (!image.naturalWidth || !image.naturalHeight) {
+        console.error("Unable to determine impact story image dimensions.", image.src);
+        return;
+    }
+    impactPhoto.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+}
+
+if (impactImage.complete) {
+    fitImpactPhoto(impactImage);
+} else {
+    impactImage.addEventListener("load", () => fitImpactPhoto(impactImage), { once: true });
+}
 
 function scheduleImpactAutoplay() {
     clearTimeout(impactTimer);
@@ -436,6 +451,7 @@ function showImpactStory(index) {
                 impactNextImage.classList.add("is-active");
                 impactNextImage.alt = story.alt;
                 impactNextImage.removeAttribute("aria-hidden");
+                fitImpactPhoto(preload);
 
                 [impactImage, impactNextImage] = [impactNextImage, impactImage];
                 impactCurrent = nextIndex;
