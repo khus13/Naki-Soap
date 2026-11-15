@@ -187,10 +187,11 @@ a { color: inherit; text-decoration: none; }
     transition: background .2s, transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
     border-radius: 25px;
 }
-
-.btn:hover {
-    background: #3a0a7d;
-    box-shadow: 0 8px 20px -8px rgba(76, 17, 156, .55);
+@media (hover: hover) {
+    .btn:hover {
+        background: #3a0a7d;
+        box-shadow: 0 8px 20px -8px rgba(76, 17, 156, .55);
+    }
 }
 
 /* feedback on press, instantly */
@@ -353,7 +354,7 @@ a { color: inherit; text-decoration: none; }
     transition: opacity .35s var(--ease-out), transform .35s var(--ease-out);
 }
 
-.dot:hover { transform: scale(1.15); }
+@media (hover: hover) { .dot:hover { transform: scale(1.15); } }
 .dot:active { transform: scale(.85); transition: transform .1s ease-out; }
 
 .product-info { display: flex; flex-direction: column; }
@@ -466,7 +467,7 @@ a { color: inherit; text-decoration: none; }
     transition: color .2s, transform .35s var(--ease-out);
 }
 
-.socials a:hover { color: var(--violet); transform: translateY(-2px); }
+@media (hover: hover) { .socials a:hover { color: var(--violet); transform: translateY(-2px); } }
 .socials a:active { transform: scale(.9); transition: transform .1s ease-out; }
 
 .footer-col {
@@ -594,9 +595,24 @@ a { color: inherit; text-decoration: none; }
 
     .footer-top { grid-template-columns: 1fr 1fr; }
     .footer-brand { grid-column: 1 / -1; }
+
+    /* the stacked card is taller than the flower strip, so stretch the flowers
+       to the full footer height; starting above the top hides the image's
+       empty sky so the petals still peek over the card */
+    .footer-wrap::before {
+        top: -160px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        aspect-ratio: auto;
+        transform: none;
+        background-size: cover;
+        background-position: center bottom;
+    }
 }
 
 @media (max-width: 560px) {
+    .her0 p, .product-desc, .footer-brand p { text-align: left; }
     :root { --header-h: 136px; }
     .nav-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
     .logo img { width: 110px; }
@@ -608,6 +624,11 @@ a { color: inherit; text-decoration: none; }
     .footer { padding: 22px 20px 14px; }
     .footer-top { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 380px) {
+    .nav-links ul { gap: 12px; }
+    .nav-links a { font-size: 1rem; }
 }
 
 /*  Accessibility preferences  */
@@ -635,4 +656,13 @@ a { color: inherit; text-decoration: none; }
     .site-header::before { background: #fbf9f5; border-bottom: 1px solid var(--nav-active); }
     .dot { opacity: calc(1 - var(--dist) * .2); }
     .hero p, .product-desc { color: #6a4f9e; }
+}
+
+@media (pointer: course) {
+    .nav-links a { padding: 10px 0; margin: -10px 0; }
+    .dots { gap: 18px; margin-top: 8px; }
+    .dot { position: relative; }
+    .dot::before { content: ""; position: absolute; inset: -12px -9px; }
+    .footer-col a,
+    .legal a { padding: 6px 0; }
 }
